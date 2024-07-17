@@ -3,12 +3,9 @@
 __author__ = 'cleardusk'
 
 import sys
-
-sys.path.append('..')
-
 import os.path as osp
 import numpy as np
-from utils.io import _load
+from ..utils.io import _load
 
 make_abs_path = lambda fn: osp.join(osp.dirname(osp.realpath(__file__)), fn)
 

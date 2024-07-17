@@ -19,7 +19,7 @@ from .bfm.bfm_onnx import convert_bfm_to_onnx
 make_abs_path = lambda fn: osp.join(osp.dirname(osp.realpath(__file__)), fn)
 
 
-class TDDFA_ONNX(object):
+class TDDFA_ONNX_GPU(object):
     """TDDFA_ONNX: the ONNX version of Three-D Dense Face Alignment (TDDFA)"""
 
     def __init__(self, **kvs):
@@ -34,7 +34,9 @@ class TDDFA_ONNX(object):
                 shape_dim=kvs.get('shape_dim', 40),
                 exp_dim=kvs.get('exp_dim', 10)
             )
-        self.bfm_session = onnxruntime.InferenceSession(bfm_onnx_fp, None)
+        self.bfm_session = onnxruntime.InferenceSession(
+            bfm_onnx_fp, providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
+        )
 
         # load for optimization
         bfm = BFMModel(bfm_fp, shape_dim=kvs.get('shape_dim', 40), exp_dim=kvs.get('exp_dim', 10))

@@ -3,12 +3,9 @@
 __author__ = 'cleardusk'
 
 import sys
-
-sys.path.append('..')
-
 import torch
-import models
-from utils.tddfa_util import load_model
+from .. import models
+from .tddfa_util import load_model
 
 
 def convert_to_onnx(**kvs):
